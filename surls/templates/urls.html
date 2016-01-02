@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block body %}
+	{% for entry in entries %}
+		<p>
+			{{ entry.url }} <br>
+			{{ entry.links }} <br>
+			{{ entry.text }} <br>
+		</p>
+	{% endfor %}
+{% endblock %}
