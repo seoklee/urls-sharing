@@ -2,6 +2,7 @@ import sqlite3, random, string
 from flask import Flask, request, session, g, redirect, \
     abort, render_template, flash
 from contextlib import closing
+from urlparse import urlparse
 
 # config
 DATABASE = '/tmp/surl.db'
@@ -40,6 +41,15 @@ def gen_url(length):
             return url
 
 
+def check_and_fix_http(url):
+    o = urlparse(url)
+    print o
+    if not o.scheme:
+        url = "http://" + url
+    print url
+    return url
+
+
 @app.before_request
 def before_request():
     g.db = connect_db()
@@ -60,16 +70,22 @@ def index():
 @app.route('/create', methods=['POST'])
 def create():
     url = gen_url(4)
+    links = [x.strip() for x in request.form['links'].split(',')]
+    for i, link in enumerate(links):
+        links[i] = check_and_fix_http(link)
+    links_str = ','.join(links)
     g.db.execute('insert into entries (url, links, text) values (?, ?, ?)',
-                 [url, request.form['links'], request.form['text']])
+                 [url, links_str, request.form['text']])
     g.db.commit()
-    return '{}/{}'.format(DEV_URL, url)
+    url_link = '{}/u/{}'.format(DEV_URL, url)
+    return render_template('create.html', url_link=url_link)
 
 
-@app.route('/<url>')
+@app.route('/u/<url>')
 def urls(url=None):
     result = g.db.execute('select * from entries where url = ?', [url])
     entries = [dict(url=row[0], links=row[1], text=row[2]) for row in result.fetchall()]
+    entries[0]['links'] = entries[0]['links'].split(',')
     return render_template('urls.html', entries=entries)
 
 

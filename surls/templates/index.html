@@ -3,23 +3,17 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-6">
-
+        <div class="col-md-12">
             <form action="{{ url_for('create') }}" method="post" class="create">
-
-                <label for="links">Links</label>
-                <div class="input-group">
-                    <textarea class="form-control" id="links" name="links"
-                              rows="5" cols="40"></textarea>
+                <div class="form-group">
+                    <label for="links">Links</label>
+                    <textarea class="form-control" id="links" name="links" rows="7"></textarea>
                 </div>
-
-                <label for="text">Links Description</label>
-                <div class="input-group">
-                    <textarea class="form-control" id="text" name="text"
-                              rows="5" cols="40"></textarea>
+                <div class="form-group">
+                    <label for="text">Links Description</label>
+                    <textarea class="form-control" id="text" name="text" rows="7"></textarea>
                 </div>
-                <input type="submit" class="btn btn-primary" value="Create">
-
+                <input type="submit" class="btn btn-block btn-primary" value="Create">
             </form>
         </div>
     </div>
