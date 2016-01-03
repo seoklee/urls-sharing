@@ -1,8 +1,27 @@
 {% extends "base.html" %}
 {% block body %}
-<form action="{{ url_for('create') }}" method=post class=create>
-	<textarea type=text rows=5 cols=40 name=text></textarea>
-	<textarea type=text rows=5 cols=40 name=links></textarea>
-	<input type=submit value=Create>
-</form>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+
+            <form action="{{ url_for('create') }}" method="post" class="create">
+
+                <label for="links">Links</label>
+                <div class="input-group">
+                    <textarea class="form-control" id="links" name="links"
+                              rows="5" cols="40"></textarea>
+                </div>
+
+                <label for="text">Links Description</label>
+                <div class="input-group">
+                    <textarea class="form-control" id="text" name="text"
+                              rows="5" cols="40"></textarea>
+                </div>
+                <input type="submit" class="btn btn-primary" value="Create">
+
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock %}
