@@ -45,7 +45,8 @@ def index():
 @app.route('/create', methods=['POST'])
 def create():
     url = gen_url(4)
-    links = [x.strip() for x in request.form['links'].split(',')]
+    links = request.form.getlist('links')
+    links = filter(None, links)
     for i, link in enumerate(links):
         links[i] = check_and_fix_http(link)
     link_entry = LinkEntry(

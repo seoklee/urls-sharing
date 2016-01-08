@@ -1,19 +1,17 @@
 {% extends "base.html" %}
 {% block body %}
-{#	{% for entry in entries %}#}
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <h4>Links</h4>
-                <ul>
-                    {% for link in entry.links %}
-                        <li><a href="{{ link }}">{{ link }}</a></li>
-                    {% endfor %}
-                </ul>
-                <h4>Links Description</h4>
-                <p>{{ entry.description }}</p>
-            </div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Links</h4>
+            <ul>
+                {% for link in entry.links %}
+                    <li><a href="{{ link }}">{{ link }}</a></li>
+                {% endfor %}
+            </ul>
+            <h4>Links Description</h4>
+            <p>{{ entry.description }}</p>
         </div>
     </div>
-{#	{% endfor %}#}
+</div>
 {% endblock %}

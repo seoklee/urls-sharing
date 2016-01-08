@@ -11,12 +11,13 @@ setInterval(function () {
     var last_link = document.getElementsByName("links")[index];
     //input entered & needs another text box
     if (last_link.value != '') {
-        var element = document.createElement('textarea');
+        var element = document.createElement('input');
         var div = document.getElementById("link-group");
         element.setAttribute("rows", 7);
         element.setAttribute("name", "links");
         element.setAttribute("id", "links");
         element.setAttribute("class", "form-control");
+        element.setAttribute("type", text);
         div.appendChild(element);
     }
 
@@ -27,6 +28,4 @@ setInterval(function () {
             curr.remove();
         }
     }
-
-
 }, 100);
