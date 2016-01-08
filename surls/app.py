@@ -11,8 +11,9 @@ import string
 DEV_URL = 'http://127.0.0.1:5000'
 
 # creating the app
-app = Flask(__name__)
+app = Flask(__name__, instance_relative_config=True)
 app.config.from_object('config')
+app.config.from_pyfile('config.py', silent=True)
 
 db = MongoEngine(app)
 
@@ -48,9 +49,9 @@ def create():
     for i, link in enumerate(links):
         links[i] = check_and_fix_http(link)
     link_entry = LinkEntry(
-        token=url,
-        links=links,
-        description=request.form['text']
+            token=url,
+            links=links,
+            description=request.form['text']
     )
     link_entry.save()
     url_link = '{}/u/{}'.format(DEV_URL, url)
