@@ -6,4 +6,11 @@
 A basic application to share multiple URLs/text with others through one URL.
 
 ### running the code
-run.sh 
+From the root directory,
+
+`dev_appserver.py .` 
+
+### deploying to app engine
+From the root directory,
+
+`appcfg.py update .`
