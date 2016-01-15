@@ -1,19 +1,19 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <form action="{{ url_for('create') }}" method="post">
+    <form action="{{ url_for('create') }}" method="post" class="create">
         <div class="form-group" id="link-group">
-            <label class="content-lbl" for="links">Add some URLS</label>
+            {{ form.link.label }}
             <div class="input-group" name="links">
                 <span class="input-group-addon">1</span>
-                <input type="text" class="form-control content-input" rows="7" placeholder="example.com">
+                {{ form.link(rows="7", class = "form-control content-input", placeholder="example.com") }}
             </div>
         </div>
         <div class="form-group">
-            <label class="content-lbl" for="text">Give a description (optional)</label>
-            <textarea class="form-control content-input" id="text" name="text" rows="6"></textarea>
+            {{ form.text.label }}
+            {{ form.text(class="form-control content-input", rows="6") }}
         </div>
-        <input type="submit" class="btn btn-block btn-primary content-btn" value="SHARE">
+        {{ form.submit(class = "btn btn-block btn-primary content-btn", value = "Share") }}
     </form>
 {% endblock %}
 

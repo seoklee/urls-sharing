@@ -56,3 +56,9 @@
         }
     }, 100);
 })();
+
+(function deleteButton() {
+    var index = document.getElementsByName("link").length - 1;
+    var last_link = document.getElementsByName("link")[index];
+    last_link.remove();
+})();

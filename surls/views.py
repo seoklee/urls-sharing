@@ -2,6 +2,7 @@ from flask import request, render_template
 from urlparse import urlparse
 from surls import app
 from surls.models import *
+from surls.forms import *
 from surls import database
 from requests import HTTPError
 import random
@@ -31,21 +32,31 @@ def check_and_fix_http(url):
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    form = link_form()
+    return render_template('index.html', form=form)
 
 
 @app.route('/create', methods=['POST'])
 def create():
     url = gen_url(4)
-    links = request.form.getlist('links')
-    links = filter(None, links)
-    for i, link in enumerate(links):
-        links[i] = check_and_fix_http(link)
+    links = []
+
+    for item in request.form.getlist('link'):
+        if item != '':
+            item = check_and_fix_http(str(item))
+            links.append(str(item))
+
+    print links
+    print "<<<<<<<< !"
+
     link_entry = LinkEntry(
             _id=url,
             links=links,
             description=request.form['text']
     )
+
+    print "printing"
+
     database.add(link_entry)
     url_link = '{}/u/{}'.format(PROD_URL, url)
     return render_template('create.html', url_link=url_link)
