@@ -4,7 +4,12 @@
 
 "use strict";
 
-
+(function () {
+    var expression = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
+    var regex = new RegExp(expression);
+    var first_elem = document.getElementsByName("link")[0];
+    first_elem.setAttribute("pattern", regex.source);
+})();
 
 //create &delete a new text area
 (function () {
@@ -20,12 +25,7 @@
             var span = document.createElement('span');
             span.setAttribute("class", "input-group-addon");
             span.innerHTML = links.length + 1;
-            var input = document.createElement('input');
-            input.setAttribute("rows", 7);
-            input.setAttribute("name", "links");
-            input.setAttribute("placeholder", "example.com");
-            input.setAttribute("class", "form-control content-input");
-            input.setAttribute("type", text);
+            var input = last_link.cloneNode(false);
             inputGroup.appendChild(span);
             inputGroup.appendChild(input);
             parent.appendChild(inputGroup);
