@@ -54,4 +54,5 @@ def create():
 @app.route('/u/<url>')
 def urls(url=None):
     entry = database.get(url)
-    return render_template('urls.html', entry=entry)
+    url_link = '{}/u/{}'.format(PROD_URL, url)
+    return render_template('urls.html', url_link=url_link, entry=entry)
