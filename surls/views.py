@@ -1,4 +1,4 @@
-from flask import request, render_template
+from flask import request, render_template, flash
 from urlparse import urlparse
 from surls import app
 from surls.models import *
@@ -30,6 +30,14 @@ def check_and_fix_http(url):
     return url
 
 
+def flash_errors(form):
+    for field, errors in form.errors.items():
+        for error in errors:
+            flash(u"Error in the %s field\n - %s\n" % (
+                getattr(form, field).label.text,
+                error
+            ))
+
 @app.route('/')
 def index():
     form = link_form()
@@ -38,24 +46,24 @@ def index():
 
 @app.route('/create', methods=['POST'])
 def create():
+
+    form = link_form()
     url = gen_url(4)
-    links = []
 
-    for item in request.form.getlist('link'):
-        if item != '':
-            item = check_and_fix_http(str(item))
-            links.append(str(item))
+    for index, item in enumerate(form.link.raw_data):
+        form.link.raw_data[index] = check_and_fix_http(str(item))
 
-    print links
-    print "<<<<<<<< !"
+    if form.validate():
+        print "yeah fam"
+    else:
+        print "nah fam"
+        flash_errors(form)
 
     link_entry = LinkEntry(
             _id=url,
-            links=links,
+            links=form.link.raw_data,
             description=request.form['text']
     )
-
-    print "printing"
 
     database.add(link_entry)
     url_link = '{}/u/{}'.format(PROD_URL, url)

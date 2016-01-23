@@ -1,4 +1,11 @@
 {% extends "base.html" %}
+<<<<<<< 2cb6fe834092f334c25c91e7826bb5aa19bb5a13
 {% block content %}
+=======
+{% block body %}
+    {%  for message in get_flashed_messages() %}
+        {{ message }}
+    {% endfor %}
+>>>>>>> WTForm validation added.
     <a href="{{ url_link }}">{{ url_link }}</a>
 {% endblock %}
