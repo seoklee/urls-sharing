@@ -9,7 +9,7 @@ import string
 
 # change this later
 # DEV_URL = 'http://localhost:8080'
-PROD_URL = 'http://urls-sharing.appspot.com'
+PROD_URL = 'http://shareurls.appspot.com'
 
 
 def gen_url(length):
