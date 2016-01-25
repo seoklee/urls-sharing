@@ -1,4 +1,4 @@
-from flask import request, render_template, flash
+from flask import request, render_template, flash, redirect, session
 from urlparse import urlparse
 from surls import app
 from surls.models import *
@@ -38,36 +38,32 @@ def flash_errors(form):
                 error
             ))
 
-@app.route('/')
+
+@app.route('/', methods=['GET', 'POST'])
 def index():
     form = link_form()
+
+    if request.method == 'POST':
+        url = gen_url(4)
+        # attempting to fix each entry
+        for index, item in enumerate(form.link.raw_data):
+            form.link.raw_data[index] = check_and_fix_http(str(item))
+
+        if not form.validate():
+            flash_errors(form)
+            session['links'] = form.link.raw_data
+            return render_template('index.html', form=form, links=session.get("links"))
+        else:
+            link_entry = LinkEntry(
+                _id=url,
+                links=form.link.raw_data,
+                description=request.form['text']
+            )
+            database.add(link_entry)
+            url_link = '{}/u/{}'.format(PROD_URL, url)
+            return redirect(url_link)
+
     return render_template('index.html', form=form)
-
-
-@app.route('/create', methods=['POST'])
-def create():
-
-    form = link_form()
-    url = gen_url(4)
-
-    for index, item in enumerate(form.link.raw_data):
-        form.link.raw_data[index] = check_and_fix_http(str(item))
-
-    if form.validate():
-        print "yeah fam"
-    else:
-        print "nah fam"
-        flash_errors(form)
-
-    link_entry = LinkEntry(
-            _id=url,
-            links=form.link.raw_data,
-            description=request.form['text']
-    )
-
-    database.add(link_entry)
-    url_link = '{}/u/{}'.format(PROD_URL, url)
-    return render_template('create.html', url_link=url_link)
 
 
 @app.route('/u/<url>')
