@@ -4,13 +4,6 @@
     margin-bottom: 20px;
 }
 
-@media (min-width: 768px) {
-    .container {
-        max-width: 768px;
-        margin-top: 20px;
-    }
-}
-
 
 /* sidebar */
 
@@ -20,30 +13,25 @@
 
 .sidebar h1 {
     margin-top: 0;
-    font-size: 40px;
+    font-size: 30px;
     font-weight: 600;
 }
 
 .sidebar p {
-    font-size: 17px;
+    font-size: 13px;
     font-weight: 300;
+    line-height: 0.5em;
 }
 
 /* content */
-.create input {
-    font-size: 16px;
-}
 
-.create textarea {
-    font-size: 16px;
-}
 
 .content div {
-    margin-bottom: 20px;
+    margin: 20px 0 20px;
 }
 
 .content-lbl {
-    font-size: 30px;
+    font-size: 20px;
     font-weight: 600;
     margin: 0 0 5px;
 }
@@ -53,12 +41,12 @@ div.input-group {
 }
 
 .content-btn {
-    font-size: 23px;
+    font-size: 20px;
     font-weight: 600;
 }
 
 .content-url {
-    font-size: 25px;
+    font-size: 20px;
     font-weight: 300;
     padding: 5px;
     margin: 0 0 5px;
@@ -66,7 +54,8 @@ div.input-group {
 }
 
 .content-description {
-    font-size: 18px;
+    font-size: 13px;
+    line-height: 1.2em;
     font-weight: 300;
 }
 
@@ -78,4 +67,44 @@ div.input-group {
     font-size: 15px;
     font-weight: 600;
     margin-bottom: 5px;
+}
+
+.content-input {
+    font-size: 16px;
+}
+
+@media (min-width: 768px) {
+    .container {
+        max-width: 768px;
+        margin-top: 20px;
+    }
+
+    .sidebar h1 {
+        font-size: 40px;
+    }
+
+    .sidebar p {
+        font-size: 17px;
+        line-height: 1em;
+    }
+
+    .content div {
+        margin: 0 0 20px;
+    }
+
+    .content-lbl {
+        font-size: 30px;
+    }
+
+    .content-url {
+        font-size: 25px;
+    }
+
+    .content-description {
+        font-size: 18px;
+    }
+
+    .content-btn {
+        font-size: 18px;
+    }
 }
