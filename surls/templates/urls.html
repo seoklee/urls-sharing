@@ -1,17 +1,26 @@
 {% extends "base.html" %}
-{% block body %}
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <h4>Links</h4>
-            <ul>
-                {% for link in entry.links %}
-                    <li><a href="{{ link }}">{{ link }}</a></li>
-                {% endfor %}
-            </ul>
-            <h4>Links Description</h4>
-            <p>{{ entry.description }}</p>
-        </div>
+{% block content %}
+    <div>
+        <h1 class="content-lbl">Share this with others</h1>
+        <h2 class="content-url">{{ url_link }}</h2>
     </div>
-</div>
+    {% if entry.description %}
+        <div>
+            <h1 class="content-lbl">Description</h1>
+            <p class="content-description">{{ entry.description }}</p>
+        </div>
+    {% endif %}
+    <div>
+        <h1 class="content-lbl">URLS</h1>
+        <ol class="content-url-list">
+            {% for link in entry.links %}
+                <li><a href="{{ link }}">{{ link }}</a></li>
+            {% endfor %}
+        </ol>
+    </div>
+{% endblock %}
+
+
+{% block script %}
+    <script type="text/javascript" src="../static/urls.js"></script>
 {% endblock %}

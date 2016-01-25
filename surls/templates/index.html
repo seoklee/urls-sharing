@@ -1,26 +1,22 @@
 {% extends "base.html" %}
-{% block body %}
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <form action="{{ url_for('create') }}" method="post" class="create">
-                <div class="form-group" id="link-group">
-                    <label for="links">Links</label>
-                    <input type="text" class="form-control" id="links" name="links" rows="7"></inpult>
-                </div>
-                <div class="form-group">
-                    <label for="text">Links Description</label>
-                    <textarea class="form-control" id="text" name="text" rows="7"></textarea>
-                </div>
-                <input type="submit" class="btn btn-block btn-primary" value="Create">
-            </form>
+{% block content %}
+    <form action="{{ url_for('create') }}" method="post">
+        <div class="form-group" id="link-group">
+            <label class="content-lbl" for="links">Add some URLS</label>
+            <div class="input-group" name="links">
+                <span class="input-group-addon">1</span>
+                <input type="text" class="form-control content-input" rows="7" placeholder="example.com">
+            </div>
         </div>
-    </div>
-</div>
+        <div class="form-group">
+            <label class="content-lbl" for="text">Give a description (optional)</label>
+            <textarea class="form-control content-input" id="text" name="text" rows="6"></textarea>
+        </div>
+        <input type="submit" class="btn btn-block btn-primary content-btn" value="SHARE">
+    </form>
 {% endblock %}
 
-
 {% block script %}
-<script type="text/javascript" src="../static/links.js"></script>
+    <script type="text/javascript" src="../static/index.js"></script>
 {% endblock %}
