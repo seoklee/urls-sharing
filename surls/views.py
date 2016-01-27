@@ -7,6 +7,7 @@ from surls import database
 from requests import HTTPError
 import random
 import string
+import json
 
 # change this later
 # DEV_URL = 'http://localhost:8080'
@@ -33,10 +34,7 @@ def check_and_fix_http(url):
 def flash_errors(form):
     for field, errors in form.errors.items():
         for error in errors:
-            flash(u"Error in the %s field\n - %s\n" % (
-                getattr(form, field).label.text,
-                error
-            ))
+            flash(u"%s\n" % error)
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -52,7 +50,9 @@ def index():
         if not form.validate():
             flash_errors(form)
             session['links'] = form.link.raw_data
-            return render_template('index.html', form=form, links=session.get("links"))
+            print json.dumps(form.failed_links)
+            return render_template('index.html', form=form, links=session.get("links"),
+                                   failed_links=map(json.dumps, form.failed_links))
         else:
             link_entry = LinkEntry(
                 _id=url,

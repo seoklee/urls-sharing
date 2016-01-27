@@ -3,13 +3,14 @@
  */
 
 "use strict";
-
 (function () {
     var expression = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
     var regex = new RegExp(expression);
-    var first_elem = document.getElementsByName("link")[0];
+    var first_elem = document.getElementsByClassName("input-group")[0].children[1];
     first_elem.setAttribute("pattern", regex.source);
+    //first_elem.setAttribute("required", true);
 })();
+
 
 //create &delete a new text area
 (function () {
@@ -20,14 +21,10 @@
         //input entered & needs another text box
         if (last_link.children[1].value != '') {
             var parent = document.getElementById("link-group");
-            var inputGroup = document.createElement("div");
-            inputGroup.setAttribute("class", "input-group");
-            var span = document.createElement('span');
-            span.setAttribute("class", "input-group-addon");
-            span.innerHTML = links.length + 1;
-            var input = last_link.cloneNode(false);
-            inputGroup.appendChild(span);
-            inputGroup.appendChild(input);
+            var inputGroup = last_link.cloneNode(true);
+            inputGroup.children[0].innerHTML = links.length + 1;
+            inputGroup.children[1].value = '';
+            inputGroup.children[1].style.backgroundColor = "";
             parent.appendChild(inputGroup);
         }
 
@@ -57,8 +54,21 @@
     }, 100);
 })();
 
-(function deleteButton() {
-    var index = document.getElementsByName("link").length - 1;
-    var last_link = document.getElementsByName("link")[index];
+function deleteLast() {
+    var links = document.getElementsByClassName("input-group");
+    var index = links.length - 1;
+    var last_link = links[index];
     last_link.remove();
+}
+
+//highlight wrong
+(function () {
+    var failed_links = document.getElementsByClassName("failed-links");
+    var links = document.getElementsByClassName("input-group");
+    console.log(failed_links.length);
+    for (var i = 0; i < failed_links.length; i++) {
+        console.log(failed_links[i].innerHTML);
+        var index = parseInt(failed_links[i].innerHTML);
+        links[index].children[1].style.backgroundColor = "#f2dede";
+    }
 })();

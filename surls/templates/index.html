@@ -1,20 +1,36 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <form action="{{ url_for('create') }}" onsubmit="deleteButton()" method="post" class="create">
-        {{  form.csrf_token }}
+    {% for link in failed_links %}
+        <div hidden class="failed-links">
+            {{ link }}
+        </div>
+    {% endfor %}
+
+    <form action="{{ url_for('index') }}" onsubmit="deleteLast()" method="post" class="create">
+        {{ form.csrf_token }}
+        {% for message in get_flashed_messages() %}
+            <div class="alert alert-danger">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {{ message }}
+            </div>
+        {% endfor %}
+
         <div class="form-group" id="link-group">
             {{ form.link.label }}
-            <div class="input-group" name="links">
-                <span class="input-group-addon">1</span>
-                {% if links %}
-                    {% for link in links %}
+            {% if links %}
+                {% for link in links %}
+                    <div class="input-group" name="links">
+                        <span class="input-group-addon">1</span>
                         {{ form.link(rows=7, class="form-control content-input", value=link) }}
-                    {% endfor %}
-                {% else %}
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="input-group" name="links">
+                    <span class="input-group-addon">1</span>
                     {{ form.link(rows=7, class="form-control content-input", placeholder="example.com") }}
-                {% endif %}
-            </div>
+                </div>
+            {% endif %}
         </div>
         <div class="form-group">
             {{ form.text.label }}
