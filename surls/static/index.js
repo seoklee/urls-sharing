@@ -3,12 +3,14 @@
  */
 
 "use strict";
+
+
+//js simple url validation
 (function () {
     var expression = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
     var regex = new RegExp(expression);
     var first_elem = document.getElementsByClassName("input-group")[0].children[1];
     first_elem.setAttribute("pattern", regex.source);
-    //first_elem.setAttribute("required", true);
 })();
 
 
@@ -20,6 +22,7 @@
         var last_link = links[index];
         //input entered & needs another text box
         if (last_link.children[1].value != '') {
+            console.log("cloning and appending");
             var parent = document.getElementById("link-group");
             var inputGroup = last_link.cloneNode(true);
             inputGroup.children[0].innerHTML = links.length + 1;
@@ -40,7 +43,6 @@
                 }
                 //if the first box was removed, place the cursor at the new first box
                 if (i === 0) {
-                    console.log(links.length);
                     links[0].children[1].select();
                     links[0].children[1].selectionStart = links[0].children[1].value.length;
                 }
@@ -54,6 +56,7 @@
     }, 100);
 })();
 
+//
 function deleteLast() {
     var links = document.getElementsByClassName("input-group");
     var index = links.length - 1;
@@ -61,13 +64,11 @@ function deleteLast() {
     last_link.remove();
 }
 
-//highlight wrong
+//highlight "wrong" urls
 (function () {
     var failed_links = document.getElementsByClassName("failed-links");
     var links = document.getElementsByClassName("input-group");
-    console.log(failed_links.length);
     for (var i = 0; i < failed_links.length; i++) {
-        console.log(failed_links[i].innerHTML);
         var index = parseInt(failed_links[i].innerHTML);
         links[index].children[1].style.backgroundColor = "#f2dede";
     }

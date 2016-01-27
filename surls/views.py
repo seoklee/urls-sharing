@@ -37,33 +37,36 @@ def flash_errors(form):
             flash(u"%s\n" % error)
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/', methods=['GET'])
 def index():
     form = link_form()
-
-    if request.method == 'POST':
-        url = gen_url(4)
-        # attempting to fix each entry
-        for index, item in enumerate(form.link.raw_data):
-            form.link.raw_data[index] = check_and_fix_http(str(item))
-
-        if not form.validate():
-            flash_errors(form)
-            session['links'] = form.link.raw_data
-            print json.dumps(form.failed_links)
-            return render_template('index.html', form=form, links=session.get("links"),
-                                   failed_links=map(json.dumps, form.failed_links))
-        else:
-            link_entry = LinkEntry(
-                _id=url,
-                links=form.link.raw_data,
-                description=request.form['text']
-            )
-            database.add(link_entry)
-            url_link = '{}/u/{}'.format(PROD_URL, url)
-            return redirect(url_link)
-
     return render_template('index.html', form=form)
+
+
+@app.route('/', methods=['POST'])
+def create():
+    form = link_form()
+    url = gen_url(4)
+
+    # TODO Maybe this should be done form?
+    # attempting to fix each entry
+    for index, item in enumerate(form.link.raw_data):
+        form.link.raw_data[index] = check_and_fix_http(str(item))
+
+    if not form.validate():
+        flash_errors(form)
+        session['links'] = form.link.raw_data
+        return render_template('index.html', form=form, links=session.get("links"),
+                               failed_links=map(json.dumps, form.failed_links))
+    else:
+        link_entry = LinkEntry(
+            _id=url,
+            links=form.link.raw_data,
+            description=request.form['text']
+        )
+        database.add(link_entry)
+        url_link = '{}/u/{}'.format(PROD_URL, url)
+        return redirect(url_link)
 
 
 @app.route('/u/<url>')

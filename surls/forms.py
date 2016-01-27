@@ -1,6 +1,6 @@
 from flask.ext.wtf import Form
 from wtforms import StringField, TextAreaField, SubmitField, ValidationError
-from wtforms.validators import DataRequired, Regexp
+from wtforms.validators import DataRequired
 import re
 
 
@@ -19,6 +19,7 @@ class link_form(Form):
             r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})'  # ...or ip
             r'(?::\d+)?'  # optional port
             r'(?:/?|[/?]\S+)$', re.IGNORECASE)
+
         form.failed_links = []
         raise_exception = False
 
@@ -28,6 +29,4 @@ class link_form(Form):
                 raise_exception = True
 
         if raise_exception:
-            # form.errors["failed_links"] = failed_links
-            # print "does this ever run if?"
-            raise ValidationError("Not proper URLs. Try Again.")
+            raise ValidationError("Please enter a valid URL.")

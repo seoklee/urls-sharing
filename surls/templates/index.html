@@ -7,7 +7,7 @@
         </div>
     {% endfor %}
 
-    <form action="{{ url_for('index') }}" onsubmit="deleteLast()" method="post" class="create">
+    <form action="{{ url_for('create') }}" onsubmit="deleteLast()" method="post" class="create">
         {{ form.csrf_token }}
         {% for message in get_flashed_messages() %}
             <div class="alert alert-danger">
@@ -17,11 +17,11 @@
         {% endfor %}
 
         <div class="form-group" id="link-group">
-            {{ form.link.label }}
+            {{ form.link.label(class="content-lbl") }}
             {% if links %}
                 {% for link in links %}
                     <div class="input-group" name="links">
-                        <span class="input-group-addon">1</span>
+                        <span class="input-group-addon">{{ loop.index }}</span>
                         {{ form.link(rows=7, class="form-control content-input", value=link) }}
                     </div>
                 {% endfor %}
@@ -33,7 +33,7 @@
             {% endif %}
         </div>
         <div class="form-group">
-            {{ form.text.label }}
+            {{ form.text.label(class="content-lbl") }}
             {{ form.text(class="form-control content-input", rows="6") }}
         </div>
         {{ form.submit(class = "btn btn-block btn-primary content-btn", value = "Share") }}
