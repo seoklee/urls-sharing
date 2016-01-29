@@ -1,19 +1,42 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <form action="{{ url_for('create') }}" method="post">
-        <div class="form-group" id="link-group">
-            <label class="content-lbl" for="links">Add some URLS</label>
-            <div class="input-group" name="links">
-                <span class="input-group-addon">1</span>
-                <input type="text" class="form-control content-input" rows="7" placeholder="example.com">
+    {% for link in failed_links %}
+        <div hidden class="failed-links">
+            {{ link }}
+        </div>
+    {% endfor %}
+
+    <form action="{{ url_for('create') }}" onsubmit="deleteLast()" method="post" class="create">
+        {{ form.csrf_token }}
+        {% for message in get_flashed_messages() %}
+            <div class="alert alert-danger">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {{ message }}
             </div>
+        {% endfor %}
+
+        <div class="form-group" id="link-group">
+            {{ form.link.label(class="content-lbl") }}
+            {% if links %}
+                {% for link in links %}
+                    <div class="input-group" name="links">
+                        <span class="input-group-addon">{{ loop.index }}</span>
+                        {{ form.link(rows=7, class="form-control content-input", value=link) }}
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="input-group" name="links">
+                    <span class="input-group-addon">1</span>
+                    {{ form.link(rows=7, class="form-control content-input", placeholder="example.com") }}
+                </div>
+            {% endif %}
         </div>
         <div class="form-group">
-            <label class="content-lbl" for="text">Give a description (optional)</label>
-            <textarea class="form-control content-input" id="text" name="text" rows="6"></textarea>
+            {{ form.text.label(class="content-lbl") }}
+            {{ form.text(class="form-control content-input", rows="6") }}
         </div>
-        <input type="submit" class="btn btn-block btn-primary content-btn" value="SHARE">
+        {{ form.submit(class = "btn btn-block btn-primary content-btn", value = "Share") }}
     </form>
 {% endblock %}
 

@@ -5,6 +5,14 @@
 "use strict";
 
 
+//js simple url validation
+(function () {
+    var expression = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
+    var regex = new RegExp(expression);
+    var first_elem = document.getElementsByClassName("input-group")[0].children[1];
+    first_elem.setAttribute("pattern", regex.source);
+})();
+
 
 //create &delete a new text area
 (function () {
@@ -14,20 +22,12 @@
         var last_link = links[index];
         //input entered & needs another text box
         if (last_link.children[1].value != '') {
+            console.log("cloning and appending");
             var parent = document.getElementById("link-group");
-            var inputGroup = document.createElement("div");
-            inputGroup.setAttribute("class", "input-group");
-            var span = document.createElement('span');
-            span.setAttribute("class", "input-group-addon");
-            span.innerHTML = links.length + 1;
-            var input = document.createElement('input');
-            input.setAttribute("rows", 7);
-            input.setAttribute("name", "links");
-            input.setAttribute("placeholder", "example.com");
-            input.setAttribute("class", "form-control content-input");
-            input.setAttribute("type", text);
-            inputGroup.appendChild(span);
-            inputGroup.appendChild(input);
+            var inputGroup = last_link.cloneNode(true);
+            inputGroup.children[0].innerHTML = links.length + 1;
+            inputGroup.children[1].value = '';
+            inputGroup.children[1].style.backgroundColor = "";
             parent.appendChild(inputGroup);
         }
 
@@ -43,7 +43,6 @@
                 }
                 //if the first box was removed, place the cursor at the new first box
                 if (i === 0) {
-                    console.log(links.length);
                     links[0].children[1].select();
                     links[0].children[1].selectionStart = links[0].children[1].value.length;
                 }
@@ -55,4 +54,22 @@
             }
         }
     }, 100);
+})();
+
+//
+function deleteLast() {
+    var links = document.getElementsByClassName("input-group");
+    var index = links.length - 1;
+    var last_link = links[index];
+    last_link.remove();
+}
+
+//highlight "wrong" urls
+(function () {
+    var failed_links = document.getElementsByClassName("failed-links");
+    var links = document.getElementsByClassName("input-group");
+    for (var i = 0; i < failed_links.length; i++) {
+        var index = parseInt(failed_links[i].innerHTML);
+        links[index].children[1].style.backgroundColor = "#f2dede";
+    }
 })();

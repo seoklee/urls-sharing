@@ -2,7 +2,6 @@
     selectText();
     var a = document.getElementsByClassName("content-url")[0];
     a.addEventListener("click", selectText);
-
 })();
 
 
