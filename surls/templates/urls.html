@@ -1,16 +1,16 @@
 {% extends "base.html" %}
 {% block content %}
-    <div>
+    <div class="content-section">
         <h1 class="content-lbl">Share this with others</h1>
         <h2 class="content-url">{{ url_link }}</h2>
     </div>
     {% if entry.description %}
-        <div>
+        <div class="content-section">
             <h1 class="content-lbl">Description</h1>
             <p class="content-description">{{ entry.description }}</p>
         </div>
     {% endif %}
-    <div>
+    <div class="content-section">
         <h1 class="content-lbl">URLS</h1>
         <ol class="content-url-list">
             {% for link in entry.links %}

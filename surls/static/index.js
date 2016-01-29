@@ -22,7 +22,6 @@
         var last_link = links[index];
         //input entered & needs another text box
         if (last_link.children[1].value != '') {
-            console.log("cloning and appending");
             var parent = document.getElementById("link-group");
             var inputGroup = last_link.cloneNode(true);
             inputGroup.children[0].innerHTML = links.length + 1;
