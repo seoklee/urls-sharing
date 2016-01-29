@@ -21,13 +21,15 @@
         var index = links.length - 1;
         var last_link = links[index];
         //input entered & needs another text box
-        if (last_link.children[1].value != '') {
-            var parent = document.getElementById("link-group");
-            var inputGroup = last_link.cloneNode(true);
-            inputGroup.children[0].innerHTML = links.length + 1;
-            inputGroup.children[1].value = '';
-            inputGroup.children[1].style.backgroundColor = "";
-            parent.appendChild(inputGroup);
+        if (last_link) {
+            if (last_link.children[1].value != '') {
+                var parent = document.getElementById("link-group");
+                var inputGroup = last_link.cloneNode(true);
+                inputGroup.children[0].innerHTML = links.length + 1;
+                inputGroup.children[1].value = '';
+                inputGroup.children[1].style.backgroundColor = "";
+                parent.appendChild(inputGroup);
+            }
         }
 
         //check every text box except the last box. if it's empty, delete.
@@ -55,7 +57,7 @@
     }, 100);
 })();
 
-//
+//delete the last element when the submit button is pressed
 function deleteLast() {
     var links = document.getElementsByClassName("input-group");
     var index = links.length - 1;
@@ -63,12 +65,11 @@ function deleteLast() {
     last_link.remove();
 }
 
+
 //highlight "wrong" urls
-(function () {
-    var failed_links = document.getElementsByClassName("failed-links");
-    var links = document.getElementsByClassName("input-group");
-    for (var i = 0; i < failed_links.length; i++) {
-        var index = parseInt(failed_links[i].innerHTML);
-        links[index].children[1].style.backgroundColor = "#f2dede";
+function highlightFailed(failed_indexes) {
+    for (var i = 0; i < failed_indexes.length; i++) {
+        document.getElementsByClassName("input-group")[failed_indexes[i]].
+            children[1].style.backgroundColor = "#f2dede";
     }
-})();
+};

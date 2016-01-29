@@ -1,12 +1,6 @@
 {% extends "base.html" %}
 
 {% block content %}
-    {% for link in failed_links %}
-        <div hidden class="failed-links">
-            {{ link }}
-        </div>
-    {% endfor %}
-
     <form action="{{ url_for('create') }}" onsubmit="deleteLast()" method="post" class="create">
         {{ form.csrf_token }}
         {% for message in get_flashed_messages() %}
@@ -42,4 +36,7 @@
 
 {% block script %}
     <script type="text/javascript" src="../static/index.js"></script>
+    {% if failed_links %}
+        <script> highlightFailed({{ failed_links | safe }});</script>
+    {% endif %}
 {% endblock %}
