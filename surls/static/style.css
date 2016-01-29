@@ -1,14 +1,32 @@
 /* global */
-.container {
-    margin-top: 10px;
-    margin-bottom: 20px;
+html, body {
+    height: 100%;
 }
 
+.page {
+    min-height: 100%;
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+
+.container {
+    overflow: auto;
+    padding-bottom: 50px;
+}
+
+footer {
+    text-align: center;
+    position: relative;
+    margin-top: -50px;
+    height: 50px;
+    clear: both;
+    padding-top: 20px;
+}
 
 /* sidebar */
 
 .sidebar {
-    padding-right:8%;
+    padding-right: 8%;
 }
 
 .sidebar h1 {
@@ -24,7 +42,6 @@
 }
 
 /* content */
-
 
 .content-section {
     margin: 20px 0 20px;
@@ -69,15 +86,25 @@
     font-size: 16px;
 }
 
-
 .input-group {
     margin-bottom: 8px;
 }
 
 @media (min-width: 768px) {
+    .page {
+        padding: 0;
+        margin: 0;
+    }
+
     .container {
         max-width: 768px;
-        margin-top: 20px;
+        padding-top: 20px;
+    }
+
+    footer {
+        max-width: 300px;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .sidebar h1 {
@@ -108,6 +135,5 @@
     .content-btn {
         font-size: 18px;
     }
-
 
 }
