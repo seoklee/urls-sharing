@@ -14,3 +14,11 @@ From the root directory,
 From the root directory,
 
 `appcfg.py update .`
+
+## TODO
+- Add user functionality 
+	- can save/edit available links
+- Hidden div to transfer the data.
+- custom URLs
+- color change when wrong field val is changed.
+- look for solid library for validation on both backend and frontend
