@@ -9,8 +9,10 @@
 (function () {
     var expression = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
     var regex = new RegExp(expression);
-    var first_elem = document.getElementsByClassName("input-group")[0].children[1];
-    first_elem.setAttribute("pattern", regex.source);
+    var input_group = document.getElementsByClassName("input-group");
+    for (var i = 0; i < input_group.length; i++) {
+        input_group[i].children[1].setAttribute("pattern", regex.source);
+    }
 })();
 
 
@@ -65,11 +67,14 @@ function deleteLast() {
     last_link.remove();
 }
 
-
-//highlight "wrong" urls
-function highlightFailed(failed_indexes) {
-    for (var i = 0; i < failed_indexes.length; i++) {
-        document.getElementsByClassName("input-group")[failed_indexes[i]].
-            children[1].style.backgroundColor = "#f2dede";
+//highlight "wrong" urls & and change it back to white if wrong input is changed
+function highlightFailed(indexes) {
+    for (var i = 0; i < indexes.length; i++) {
+        var element =
+            document.getElementsByClassName("input-group")[indexes[i]];
+        element.children[1].style.backgroundColor = "#f2dede";
+        element.children[1].addEventListener("keydown", function (event) {
+            this.style.backgroundColor = "white";
+        });
     }
 };
