@@ -10,7 +10,7 @@
     var expression = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
     var regex = new RegExp(expression);
     var input_group = document.getElementsByClassName("input-group");
-    for(var i = 0; i < input_group.length; i++) {
+    for (var i = 0; i < input_group.length; i++) {
         input_group[i].children[1].setAttribute("pattern", regex.source);
     }
 })();
@@ -68,11 +68,13 @@ function deleteLast() {
 }
 
 //highlight "wrong" urls & and change it back to white if wrong input is changed
-function highlightFailed(index) {
-    var element =
-        document.getElementsByClassName("input-group")[index];
-    element.children[1].style.backgroundColor = "#f2dede";
-    element.children[1].addEventListener("keydown", function(event) {
-        element.children[1].style.backgroundColor = "white";
-    });
+function highlightFailed(indexes) {
+    for (var i = 0; i < indexes.length; i++) {
+        var element =
+            document.getElementsByClassName("input-group")[indexes[i]];
+        element.children[1].style.backgroundColor = "#f2dede";
+        element.children[1].addEventListener("keydown", function (event) {
+            this.style.backgroundColor = "white";
+        });
+    }
 };
