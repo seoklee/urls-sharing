@@ -1,24 +1,22 @@
-# flask toy projects
+# [share urls!](http://shareurls.appspot.com)
 
-## project 1 - link sharing
+## about
+- sharing your online lists just got easier
+- Send wish lists, reading lists, etc. with one URL.
 
-### about
-A basic application to share multiple URLs/text with others through one URL.
+## stack
+- ~~chocolate~~ vanilla javascript
+- flask
+- app engine
+- mongodb 
 
-### running the code
-From the root directory,
-
-`dev_appserver.py .` 
-
-### deploying to app engine
-From the root directory,
-
-`appcfg.py update .`
-
-## TODO
-- Add user functionality 
+## todo
+- add user functionality 
 	- can save/edit available links
-- Hidden div to transfer the data.
 - custom URLs
-- color change when wrong field val is changed.
-- look for solid library for validation on both backend and frontend
+- integrate library for url validation for frontend/backend
+
+## screenshots
+![page1](http://s10.postimg.org/3kynxjvah/Screen_Shot_2016_02_03_at_3_03_09_PM.png)
+
+![page2](http://s16.postimg.org/4839pjdz9/Screen_Shot_2016_02_03_at_3_07_02_PM.png)
